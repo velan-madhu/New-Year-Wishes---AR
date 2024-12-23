@@ -16,37 +16,29 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-   loader.load(
-  // './New-Year-Wishes-AR.glb',
-     './public/New-Year-Wishes-AR.glb',
-     function (gltf) {
-    scene.add(gltf.scene);
-  },
-  undefined,
-  function (error) {
-    console.error('An error occurred:', error);
-  }
-);
-
-    
+    // Load the GLB model
     const loader = new THREE.GLTFLoader();
     loader.load(
-      './New-Year-Wishes-AR.glb', 
+      'https://dotrinteriors.in/wp-content/uploads/2024/new-year-wishes/New-Year-Wishes-AR.glb', // Full URL to the GLB file
       function (gltf) {
-        scene.add(gltf.scene);
+        scene.add(gltf.scene); // Add the model to the scene
+        console.log('Model loaded successfully!');
       },
       undefined,
       function (error) {
-        console.error(error);
+        console.error('An error occurred while loading the model:', error);
       }
     );
 
+    // Add light to the scene
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(1, 1, 1).normalize();
     scene.add(light);
 
+    // Set the camera position
     camera.position.z = 5;
 
+    // Animation loop
     function animate() {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);
